@@ -139,47 +139,53 @@ exports.updateProduct = asyncErrorHandler(async (req, res, next) => {
       return next(new ErrorHandler("Product Not Found", 404));
     }
 
-    // Only update images if new ones are provided
-    if (req.body.images && req.body.images.length > 0) {
-      const imagesLink = req.body.images.map(url => ({
-        public_id: url.split('/').pop().split('.')[0],
-        url: url
-      }));
-      req.body.images = imagesLink;
-    } else {
-      // Keep existing images if no new ones are provided
-      delete req.body.images;
+    // Create a copy of the request body to avoid modifying the original
+    const updateData = { ...req.body };
+
+    // Only update images if explicitly provided and not empty
+    if (!updateData.images || updateData.images.length === 0) {
+      delete updateData.images;
     }
 
     // Handle brand logo if provided
-    if (req.body.logo) {
+    if (updateData.logo && typeof updateData.logo === 'string') {
       const brandLogo = {
-        public_id: req.body.logo.split('/').pop().split('.')[0],
-        url: req.body.logo
+        public_id: updateData.logo.split('/').pop().split('.')[0],
+        url: updateData.logo
       };
-      req.body.brand = {
-        name: req.body.brandname,
+      updateData.brand = {
+        name: updateData.brandname || product.brand?.name || 'Unknown Brand',
         logo: brandLogo,
       };
+    } else if (updateData.brandname) {
+      // Update only brand name if no new logo is provided
+      updateData.brand = {
+        ...product.brand,
+        name: updateData.brandname
+      };
     } else {
-      // Keep existing brand if no new one is provided
-      delete req.body.brand;
+      // Keep existing brand if no updates are provided
+      delete updateData.brand;
     }
 
     // Handle specifications
-    let specs = [];
-    if (req.body.specifications && Array.isArray(req.body.specifications)) {
-      req.body.specifications.forEach((s) => {
+    if (updateData.specifications && Array.isArray(updateData.specifications)) {
+      let specs = [];
+      updateData.specifications.forEach((s) => {
         if (typeof s === "string") {
-          specs.push(JSON.parse(s));
+          try {
+            specs.push(JSON.parse(s));
+          } catch (e) {
+            specs.push(s);
+          }
         } else {
           specs.push(s);
         }
       });
+      updateData.specifications = specs;
     }
-    req.body.specifications = specs;
 
-    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    product = await Product.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
       runValidators: true,
       useFindAndModify: false,
