@@ -5,22 +5,35 @@ import logo from "../../images/logo/logo.png";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./navbar.css";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
+  const navigate = useNavigate();
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Navbar expand="lg" className="py-3">
       <Container>
-        <Navbar.Brand href="#" className="me-lg-5">
+        <Navbar.Brand as={Link} to="/" className="me-lg-5">
           <img className="logo" src={logo} alt="logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-            <Nav.Link href="#action1">Marketplace</Nav.Link>
-            <Nav.Link href="#action2" className="px-lg-3">
+            <Nav.Link onClick={() => scrollToSection('marketplace')}>Marketplace</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection('about')} className="px-lg-3">
               About Us
             </Nav.Link>
-            <Nav.Link href="#action3">Developers</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection('developers')}>Developers</Nav.Link>
+            <Nav.Link as={Link} to="/admin/properties">
+              Manage Properties
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <div className="d-flex align-items-center order">

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 function Developers() {
   return (
-    <div className="developers">
+    <section id="developers" className="developers-section">
       <div className="container-fluid">
         <AnimationTitles
           title="Our the best developers"
@@ -197,7 +197,7 @@ function Developers() {
           </Swiper>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
 

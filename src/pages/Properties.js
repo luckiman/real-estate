@@ -78,8 +78,7 @@ function Properties() {
   }
 
   return (
-    // Start properties
-    <div className="properties">
+    <section id="marketplace" className="properties-section">
       <Container>
         <AnimationTitles
           className="title mx-auto"
@@ -206,7 +205,7 @@ function Properties() {
         </motion.div>
         {/* End cards */}
       </Container>
-    </div>
+    </section>
   );
 }
 

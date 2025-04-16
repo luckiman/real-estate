@@ -1,15 +1,17 @@
 import { Button, Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import AnimationTitles from "../components/functions/AnimationTitles";
+import "./AboutUs.css"; // Import the CSS file
 
 function AboutUs() {
   return (
-    <div className="about">
+    <section id="about" className="about-section">
       <Container className="d-flex justify-content-between flex-wrap flex-md-nowrap">
         <motion.div
           initial={{ x: -200 }}
           whileInView={{ x: 0 }}
           transition={{ duration: 0.8 }}
+          className="about-content"
         >
           <AnimationTitles title="What is Renting-Platform?" className="title" />
           <p className="gray-50 mb-5">
@@ -26,43 +28,43 @@ function AboutUs() {
           initial={{ x: 200 }}
           whileInView={{ x: 0 }}
           transition={{ duration: 0.8 }}
-          className="d-flex flex-column"
+          className="about-images"
         >
-          <div className="d-flex">
-            <div>
+          <div className="image-row">
+            <div className="image-container">
               <img
                 src={require("..//images/bohdan-d-fh6o-XkVQG8-unsplash.webp")}
-                className="p-0 me-2 img"
-                alt="img"
+                alt="Modern building"
+                className="about-image"
               />
             </div>
-            <div>
+            <div className="image-container">
               <img
                 src={require("..//images/john-o-nolan-6f_ANCcbj3o-unsplash.webp")}
-                className="p-0 img"
-                alt="img"
+                alt="City view"
+                className="about-image"
               />
             </div>
           </div>
-          <div className="d-flex">
-            <div>
+          <div className="image-row">
+            <div className="image-container">
               <img
                 src={require("..//images/julia-solonina-ci19YINguoc-unsplash.webp")}
-                className="p-0 me-2 img"
-                alt="img"
+                alt="Interior design"
+                className="about-image"
               />
             </div>
-            <div>
+            <div className="image-container">
               <img
                 src={require("..//images/theater-amazonas-manaus.webp")}
-                className="p-0 img"
-                alt="img"
+                alt="Architecture"
+                className="about-image"
               />
             </div>
           </div>
         </motion.div>
       </Container>
-    </div>
+    </section>
   );
 }
 

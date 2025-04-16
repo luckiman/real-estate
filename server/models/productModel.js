@@ -56,11 +56,9 @@ const productSchema = new mongoose.Schema({
     logo: {
       public_id: {
         type: String,
-        required: true,
       },
       url: {
         type: String,
-        required: true,
       },
     },
   },
@@ -88,15 +86,6 @@ const productSchema = new mongoose.Schema({
   },
   reviews: [
     {
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
       rating: {
         type: Number,
         required: true,
@@ -107,12 +96,6 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: true,
-  },
   createdAt: {
     type: Date,
     default: Date.now,

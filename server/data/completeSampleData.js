@@ -151,8 +151,8 @@ const seedDatabase = async () => {
             description: "2020"
           }
         ],
-        price: 1200000,
-        cuttedPrice: 1300000,
+        price: 120,
+        cuttedPrice: 130,
         images: [
           {
             public_id: "real_estate/villa_1",
@@ -210,8 +210,8 @@ const seedDatabase = async () => {
             description: "2021"
           }
         ],
-        price: 450000,
-        cuttedPrice: 480000,
+        price: 45,
+        cuttedPrice: 48,
         images: [
           {
             public_id: "real_estate/apartment_1",
